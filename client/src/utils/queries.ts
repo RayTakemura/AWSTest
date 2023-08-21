@@ -11,3 +11,14 @@ export const GET_STUDENTS = gql`
     }
   }
 `;
+
+export const SEARCH_STUDENT = gql`
+  query Student($studentId: ID){
+    student(id: $studentId){
+      id, 
+      firstName,
+      lastName,
+      age
+    }
+  }
+`
