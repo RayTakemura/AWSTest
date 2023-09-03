@@ -6,6 +6,7 @@ const typeDefs = gql`
     welcome(name: String!): String
     students: [Student] #return array of students
     student(id: ID): Student #return student by id
+    findStudentByFirstName(firstName: String!): [Student]
   }
 
   # Student object

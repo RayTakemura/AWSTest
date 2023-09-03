@@ -1,8 +1,14 @@
 import { useQuery } from "@apollo/client";
 import { SEARCH_STUDENT } from "./../../utils/queries";
 
-const SearchResult = () => {
-  const { loading, error, data } = useQuery(SEARCH_STUDENT);
+interface Props {
+  studentID: string;
+}
+
+const SearchResult: React.FC<Props> = ({ studentID }) => {
+  const { loading, error, data } = useQuery(SEARCH_STUDENT, {
+    variables: { studentId: studentID },
+  });
   if (loading) return <p>loading...</p>;
   if (error) return <p>Error : {error.message}</p>;
 
@@ -18,28 +24,14 @@ const SearchResult = () => {
       </thead>
 
       <tbody>
-        {data.student.map(
-          ({
-            id,
-            firstName,
-            lastName,
-            age,
-          }: {
-            id: string;
-            firstName: string;
-            lastName: string;
-            age: number;
-          }) => (
-            <>
-              <tr key={id}>
-                <td className="text-center">{id}</td>
-                <td className="text-center">{firstName}</td>
-                <td className="text-center">{lastName}</td>
-                <td className="text-center">{age}</td>
-              </tr>
-            </>
-          )
-        )}
+        <>
+          <tr>
+            <td className="text-center">{data.student.id}</td>
+            <td className="text-center">{data.student.firstName}</td>
+            <td className="text-center">{data.student.lastName}</td>
+            <td className="text-center">{data.student.age}</td>
+          </tr>
+        </>
       </tbody>
     </table>
   );
