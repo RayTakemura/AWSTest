@@ -1,7 +1,7 @@
 const { ApolloServer } = require("@apollo/server");
 const { startStandaloneServer } = require("@apollo/server/standalone");
-const { resolvers } = require("./resolvers.js");
-const { typeDefs } = require("./models/typeDefs.js");
+const { resolvers } = require("./schemas/resolvers.js");
+const { typeDefs } = require("./schemas/typeDefs.js");
 const { default: mongoose } = require("mongoose");
 
 const MONGO_URI = "mongodb://localhost:27017/student-register";
@@ -10,6 +10,8 @@ mongoose
   .connect(MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    useCreateIndex: true,
+    useFindAndModify: false,
   })
   .then(() => {
     console.log(`Db Connected`);
